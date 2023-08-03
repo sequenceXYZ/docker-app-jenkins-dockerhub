@@ -1,12 +1,21 @@
-FROM node:latest
+FROM centos:centos7
 
-WORKDIR /usr/src/app
+RUN yum -y install openssh-server
 
-COPY package*.json ./
+RUN useradd remote_user && \
+    echo remote_user:1234 | chpasswd && \
+    mkdir /home/remote_user/.ssh && \
+    chmod 700 /home/remote_user/.ssh
 
-RUN npm install
+COPY remote-key.pub /home/remote_user/.ssh/authorized_keys
 
-COPY . .
+RUN chown remote_user:remote_user -R /home/remote_user/.ssh && \
+    chmod 600 /home/remote_user/.ssh/authorized_keys
 
-EXPOSE 3000
-CMD [ "node", "index.js" ]
+RUN /usr/bin/ssh-keygen -A
+
+EXPOSE 22
+
+RUN rm -rf /run/nologin
+
+CMD /usr/sbin/sshd -D
