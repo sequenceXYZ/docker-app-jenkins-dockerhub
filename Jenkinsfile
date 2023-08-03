@@ -11,6 +11,7 @@ pipeline{
                 steps {
 	            git 'https://github.com/sequenceXYZ/docker-app-jenkins-dockerhub.git'
 		    sh 'cd docker-app-jenkins-dockerhub'
+		    sh 'chmod +x -R ./jenkins'
 		}
             }
 	    stage('Build') {
