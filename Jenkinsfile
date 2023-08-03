@@ -11,14 +11,14 @@ pipeline{
 	    stage('gitclone') {
 
 			steps {
-				git 'https://github.com/shazforiot/nodeapp_test.git'
+				git 'https://git@github.com:sequenceXYZ/docker-app-jenkins-dockerhub.git'
 			}
 		}
 
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t thetips4you/nodeapp_test:latest .'
+				sh 'docker build -t sequencexyz/centos_test:latest .'
 			}
 		}
 
@@ -32,7 +32,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push thetips4you/nodeapp_test:latest'
+				sh 'docker push sequencexyz/centos_test:latest'
 			}
 		}
 	}
