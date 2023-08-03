@@ -10,7 +10,7 @@ pipeline{
 	    stage('gitclone') {
                 steps {
 	            git 'https://github.com/sequenceXYZ/docker-app-jenkins-dockerhub.git'
-		    
+		    sh 'cd docker-app-jenkins-dockerhub'
 		}
             }
 	    stage('Build') {
