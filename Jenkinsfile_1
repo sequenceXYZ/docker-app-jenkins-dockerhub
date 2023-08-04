@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout SCM') {
+            steps {
+                git branch: 'main', url: 'https://github.com/sequenceXYZ/docker-app-jenkins-dockerhub.git'
+            }
+        }
+        stage('Docker build and push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'dockerhub_password') {
+                        sh 'docker build -t sequencexyz/test-app:2 .'
+                        sh 'docker push sequencexyz/test-app:2'
+                    }
+                }
+            }
+            
+        }
+    }
+    post {
+	    always {
+	        sh 'docker logout'
+	    }
+    }
+}
