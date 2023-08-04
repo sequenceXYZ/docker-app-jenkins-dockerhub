@@ -3,13 +3,13 @@ pipeline{
 	agent any
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub_token')
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub_password')
 	}
 
 	stages {
 	    stage('gitclone') {
                 steps {
-	            git 'https://github.com/sequenceXYZ/docker-app-jenkins-dockerhub.git'
+	            git branch: 'main', url: 'https://github.com/sequenceXYZ/docker-app-jenkins-dockerhub.git'
 		}
             }
 	    stage('Build') {
