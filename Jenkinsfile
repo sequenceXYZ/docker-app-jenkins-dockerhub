@@ -16,7 +16,7 @@ pipeline{
             }
 	    stage('Build') {
 	        steps {
-	            sh 'docker build -t sequencexyz/centos_test:latest .'
+	            sh 'docker build -t sequencexyz/centos_test:1 .'
 		}
 	    }
             //stage('Login') {
