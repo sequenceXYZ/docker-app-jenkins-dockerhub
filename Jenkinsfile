@@ -3,7 +3,7 @@ pipeline{
 	agent any
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub_token')
 	}
 
 	stages {
@@ -19,11 +19,11 @@ pipeline{
 	            sh 'docker build -t sequencexyz/centos_test:latest .'
 		}
 	    }
-            stage('Login') {
-	        steps {
-		    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-		}
-	    }
+            //stage('Login') {
+	        //steps {
+		    //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+		//}
+	    //}
 	    stage('Push') {
                 steps {
 	    	    sh 'docker push sequencexyz/centos_test:latest'
