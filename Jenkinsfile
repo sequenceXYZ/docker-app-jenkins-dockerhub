@@ -10,23 +10,21 @@ pipeline{
 	    stage('gitclone') {
                 steps {
 	            git 'https://github.com/sequenceXYZ/docker-app-jenkins-dockerhub.git'
-		    sh 'cd docker-app-jenkins-dockerhub'
-		    sh 'chmod +x Dockerfile'
 		}
             }
 	    stage('Build') {
 	        steps {
-	            sh 'docker build -t sequencexyz/centos_test:1 .'
+	            sh 'docker build -t sequencexyz/test-app:3 .'
 		}
 	    }
-            //stage('Login') {
-	        //steps {
-		    //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-		//}
-	    //}
+            stage('Login') {
+	        steps {
+		    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+		}
+	    }
 	    stage('Push') {
                 steps {
-	    	    sh 'docker push sequencexyz/centos_test:latest'
+	    	    sh 'docker push sequencexyz/centos_test:3'
 		}
 	    }
 	}
